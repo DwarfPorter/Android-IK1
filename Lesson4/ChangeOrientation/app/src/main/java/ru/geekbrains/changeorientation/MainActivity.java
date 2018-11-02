@@ -27,4 +27,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    protected void onSaveInstanceState(Bundle saveInstanceState){
+        super.onSaveInstanceState(saveInstanceState);
+        saveInstanceState.putInt("Counter", counter);               // Сохраняем счетчик
+    }
+
+    protected void onRestoreInstanceState(Bundle saveInstanceState){
+        super.onRestoreInstanceState(saveInstanceState);
+        counter = saveInstanceState.getInt("Counter");              // Востанавливаем счетчик
+        textCounter.setText(((Integer)counter).toString());         // Выводим счетчик в поле
+    }
 }
