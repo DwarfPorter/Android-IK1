@@ -1,6 +1,7 @@
 package ru.geekbrains.intentsender;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +19,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent("ru.geekbrains.intentobserver.MAIN");
-                startActivity(intent);
+                ActivityInfo activityInfo = intent.resolveActivityInfo(getPackageManager(), intent.getFlags());
+                if (activityInfo != null && activityInfo.exported){
+                    startActivity(intent);
+                }
             }
         });
     }
