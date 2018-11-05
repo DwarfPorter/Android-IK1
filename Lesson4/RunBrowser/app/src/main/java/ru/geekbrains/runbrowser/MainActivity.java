@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText urlTxt = findViewById(R.id.editText);
                 String url = urlTxt.getText().toString();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
                 startActivity(intent);
             }
         });
