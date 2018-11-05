@@ -19,18 +19,25 @@ public class SecondActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView2);
         textView.setText(strData);
 
-        final EditText editText = findViewById(R.id.editText2);
         Button button = findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra(getString(R.string.result), editText.getText());
-                setResult(RESULT_OK, intent);
-                finish();
+                returnResult();
             }
         });
     }
 
-    
+    @Override
+    public void onBackPressed(){
+        returnResult();
+    }
+
+    private void returnResult(){
+        EditText editText = findViewById(R.id.editText2);
+        Intent intent = new Intent();
+        intent.putExtra(getString(R.string.result), editText.getText());
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 }
