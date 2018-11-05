@@ -19,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent("ru.geekbrains.intentobserver.MAIN");
-                ActivityInfo activityInfo = intent.resolveActivityInfo(getPackageManager(), intent.getFlags());
-                if (activityInfo != null && activityInfo.exported){
-                    startActivity(intent);
+                Intent chooser = Intent.createChooser(intent, "Выбор приложения");
+                if (intent.resolveActivity(getPackageManager()) != null){
+                    startActivity(chooser);
                 }
             }
         });
