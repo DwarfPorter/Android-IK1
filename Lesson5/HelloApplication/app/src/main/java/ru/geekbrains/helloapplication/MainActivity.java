@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         TextView greeting = findViewById(R.id.txtGreeting);
-        if (currentHour >= 12 && currentHour <= 3){
+        if (currentHour >= 12 && currentHour <= 15){
             greeting.setText("Good afternoon");
         }
 
