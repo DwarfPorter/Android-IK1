@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         if (currentHour >= 12 && currentHour <= 15){
             greeting.setText("Good afternoon");
         }
-        if (currentHour >= 15 && currentHour <= 24){
+        else if (currentHour >= 16 && currentHour <= 24){
             greeting.setText("Good evening");
         }
     }
