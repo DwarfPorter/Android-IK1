@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
             greeting.setText("Good afternoon");
         }
         if (currentHour >= 15 && currentHour <= 24){
-            greeting.setText("Good afternoon");
+            greeting.setText("Good evening");
         }
     }
 }
