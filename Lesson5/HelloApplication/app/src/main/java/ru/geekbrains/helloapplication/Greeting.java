@@ -15,6 +15,9 @@ public class Greeting {
         } else if (hour >= 16 && hour <= 24) {
             return "Good evening";
         }
-        return "Hello world!";
+        else if (hour >= 4 && hour <= 11){
+            return "Good morning";
+        }
+        return "Good night";
     }
 }

@@ -43,4 +43,35 @@ public class ExampleUnitTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void Greeting_get_isMorning4(){
+        Greeting greeting = new Greeting(4);
+        String actual = greeting.get();
+        String expected = "Good morning";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void Greeting_get_isMorning11(){
+        Greeting greeting = new Greeting(11);
+        String actual = greeting.get();
+        String expected = "Good morning";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void Greeting_get_isNight0(){
+        Greeting greeting = new Greeting(0);
+        String actual = greeting.get();
+        String expected = "Good night";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void Greeting_get_isNight3(){
+        Greeting greeting = new Greeting(3);
+        String actual = greeting.get();
+        String expected = "Good night";
+        assertEquals(expected, actual);
+    }
 }
