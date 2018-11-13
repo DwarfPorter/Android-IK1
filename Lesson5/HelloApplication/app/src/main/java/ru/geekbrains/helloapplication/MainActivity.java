@@ -16,18 +16,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "onCreate: Step1");
         int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        Log.d(TAG, "onCreate: currentHour = " + currentHour );
+        Log.d(TAG, "MainActivity.onCreate: currentHour = " + currentHour );
+        Greeting hello = new Greeting(currentHour);
+        String strGeeting = hello.get();
         TextView greeting = findViewById(R.id.txtGreeting);
-        Log.d(TAG, "onCreate: greeting.getText() = " + greeting.getText());
-        if (currentHour >= 12 && currentHour <= 15){
-            Log.d(TAG, "onCreate: greeting.setText(\"Good afternoon\")");
-            greeting.setText("Good afternoon");
-        }
-        else if (currentHour >= 16 && currentHour <= 24){
-            Log.d(TAG, "onCreate: greeting.setText(\"Good evening\")");
-            greeting.setText("Good evening");
-        }
+        Log.d(TAG, "MainActivity.onCreate: greeting.getText() = " + greeting.getText());
+        greeting.setText(strGeeting);
     }
 }
