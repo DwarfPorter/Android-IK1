@@ -1,11 +1,13 @@
 package ru.geekbrains.cityinfo;
 
 
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -14,34 +16,19 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class CoatofarmsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String ARG_PARAM = "index";
 
+    private int index;
 
     public CoatofarmsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CoatofarmsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CoatofarmsFragment newInstance(String param1, String param2) {
+    public static CoatofarmsFragment newInstance(int index) {
         CoatofarmsFragment fragment = new CoatofarmsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_PARAM, index);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,17 +37,21 @@ public class CoatofarmsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            index = getArguments().getInt(ARG_PARAM, 0);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
+// определить какой герб надо показать, и показать его
+        ImageView coatOfArms = new ImageView(getActivity());
+
+        // получить из ресурсов массив указателей на изображения гербов
+        TypedArray imgs = getResources().obtainTypedArray(R.array.coatofarms_imgs);
+        // выбрать по индексу подходящий
+        coatOfArms.setImageResource(imgs.getResourceId(index, -1));
+        return coatOfArms; // Вместо макета используем сразу картинку
     }
 
 }
