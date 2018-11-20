@@ -1,11 +1,14 @@
 package ru.geekbrains.cityinfo;
 
 
+import android.support.v4.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,8 @@ import android.widget.ListView;
  * A simple {@link Fragment} subclass.
  */
 public class CitiesFragment extends ListFragment implements Constants {
+
+    boolean isExistCoatofarms;  // Можно ли расположить рядом фрагмент с гербом
 
 
     public CitiesFragment() {
@@ -41,6 +46,17 @@ public class CitiesFragment extends ListFragment implements Constants {
 
         setListAdapter(adapter);
 
+        // Определение, можно ли будет расположить рядом герб в другом фрагменте
+        View detailsFrame = getActivity().findViewById(R.id.coat_of_arms);
+        // getActivity - получить контекст активити, где расположен фрагмент
+        isExistCoatofarms = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
+
+        // Если можно нарисовать рядом герб, то сделаем это
+        if (isExistCoatofarms){
+            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            showCoatofarms(0);
+        }
+
 
     }
 
@@ -51,10 +67,31 @@ public class CitiesFragment extends ListFragment implements Constants {
     }
 
     private void showCoatofarms(int currentPosition){
-        Intent intent = new Intent();
-        intent.setClass(getActivity(), CoatofarmsActivity.class);
-        // и передадим туда параметры
-        intent.putExtra(ARG_INDEX, currentPosition);
-        startActivity(intent);
+        if (isExistCoatofarms) {
+            // Выделим текущий элемент списка
+            getListView().setItemChecked(currentPosition, true);
+
+            FragmentManager fragmentManager = ((AppCompatActivity)getActivity()).
+                    getSupportFragmentManager();
+            // Проверим, что фрагмент с гербом существует в активити
+            CoatofarmsFragment detail = (CoatofarmsFragment) fragmentManager.findFragmentById(R.id.coat_of_arms);
+            // если есть необходимость, то выведем герб
+            // Создаем новый фрагмент, с текущей позицией, для вывода герба
+            detail = CoatofarmsFragment.newInstance(currentPosition);
+
+            // Выполняем транзакцию по замене фрагмента
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.coat_of_arms, detail);  // замена фрашмента
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
+
+        }
+        else {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), CoatofarmsActivity.class);
+            // и передадим туда параметры
+            intent.putExtra(ARG_INDEX, currentPosition);
+            startActivity(intent);
+        }
     }
 }
