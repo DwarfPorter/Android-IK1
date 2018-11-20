@@ -8,16 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CoatofarmsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CoatofarmsFragment extends Fragment {
-
-    private static final String ARG_PARAM = "index";
+public class CoatofarmsFragment extends Fragment implements Constants {
 
     private int index;
 
@@ -28,7 +25,7 @@ public class CoatofarmsFragment extends Fragment {
     public static CoatofarmsFragment newInstance(int index) {
         CoatofarmsFragment fragment = new CoatofarmsFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_PARAM, index);
+        args.putInt(ARG_INDEX, index);
         fragment.setArguments(args);
         return fragment;
     }
@@ -37,7 +34,7 @@ public class CoatofarmsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            index = getArguments().getInt(ARG_PARAM, 0);
+            index = getArguments().getInt(ARG_INDEX, 0);
         }
     }
 

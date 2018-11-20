@@ -2,6 +2,7 @@ package ru.geekbrains.cityinfo;
 
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,12 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CitiesFragment extends ListFragment {
+public class CitiesFragment extends ListFragment implements Constants {
 
 
     public CitiesFragment() {
@@ -40,5 +42,19 @@ public class CitiesFragment extends ListFragment {
         setListAdapter(adapter);
 
 
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        showCoatofarms(position);
+    }
+
+    private void showCoatofarms(int currentPosition){
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), CoatofarmsActivity.class);
+        // и передадим туда параметры
+        intent.putExtra(ARG_INDEX, currentPosition);
+        startActivity(intent);
     }
 }
