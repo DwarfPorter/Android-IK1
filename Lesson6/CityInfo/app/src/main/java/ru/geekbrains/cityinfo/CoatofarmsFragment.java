@@ -74,7 +74,8 @@ public class CoatofarmsFragment extends Fragment implements Constants {
             FragmentManager fragmentManager = getActivity().
                     getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.replace(R.id.coat_of_arms, detail);  // замена фрашмента
+            InfoFragment info = InfoFragment.newInstance(index);
+            ft.replace(R.id.coat_of_arms, info);  // замена фрагмента
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
         }
