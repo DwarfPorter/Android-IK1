@@ -5,6 +5,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="empty">Список городов пуст</string>
     <string name="Info">Инфо</string>
+    <string name="Temperature">Температура</string>
+    <string name="Pressure">Давление</string>
+    <string name="Humidity">Влажность</string>
     <string-array name="Cities">
         <item>Москва</item>
         <item>Санкт-Петербург</item>

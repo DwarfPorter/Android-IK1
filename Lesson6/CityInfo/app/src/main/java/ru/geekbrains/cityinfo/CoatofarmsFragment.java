@@ -75,7 +75,12 @@ public class CoatofarmsFragment extends Fragment implements Constants {
                     getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             InfoFragment info = InfoFragment.newInstance(index);
-            ft.replace(R.id.coat_of_arms, info);  // замена фрагмента
+            int idForReplace = android.R.id.content;
+            View view = getActivity().findViewById(R.id.coat_of_arms);
+            if (view != null){
+                idForReplace = R.id.coat_of_arms;
+            }
+            ft.replace(idForReplace, info);  // замена фрагмента
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
         }

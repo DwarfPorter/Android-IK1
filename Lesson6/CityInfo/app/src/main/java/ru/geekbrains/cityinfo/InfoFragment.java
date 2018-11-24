@@ -2,10 +2,14 @@ package ru.geekbrains.cityinfo;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.Random;
 
 
 /**
@@ -44,4 +48,22 @@ public class InfoFragment extends Fragment implements Constants {
         return inflater.inflate(R.layout.fragment_info, container, false);
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        TextView city = getActivity().findViewById(R.id.cityInfo);
+        String[] names = getResources().getStringArray(R.array.Cities);
+        city.setText(names[index]);
+
+        Random rnd = new Random();
+        TextView viewTemp = getActivity().findViewById(R.id.viewTemp);
+        int rndTemp = rnd.nextInt(40);
+        viewTemp.setText(Integer.toString(rndTemp));
+        TextView viewPress = getActivity().findViewById(R.id.viewPress);
+        int rndPress = rnd.nextInt(50) + 720;
+        viewPress.setText(Integer.toString(rndPress));
+        TextView viewHum = getActivity().findViewById(R.id.viewHum);
+        int rndHum = rnd.nextInt(100);
+        viewHum.setText(Integer.toString(rndHum));
+    }
 }
