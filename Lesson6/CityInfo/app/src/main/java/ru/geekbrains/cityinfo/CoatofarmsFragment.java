@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,50 +21,33 @@ import android.widget.TextView;
  */
 public class CoatofarmsFragment extends Fragment implements Constants {
 
-    private int index;
-
     public CoatofarmsFragment() {
         // Required empty public constructor
     }
 
-    public static CoatofarmsFragment newInstance(int index) {
+    public static CoatofarmsFragment newInstance(Parcel parcel) {
         CoatofarmsFragment fragment = new CoatofarmsFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_INDEX, index);
+        args.putSerializable(ARG_PARCEL, parcel);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            index = getArguments().getInt(ARG_INDEX, 0);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_coatofarms, container, false);
-        return layout;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // определить какой герб надо показать, и показать его
-        ImageView coatOfArms = getActivity().findViewById(R.id.imageView);
-        if (coatOfArms == null) return;
+        Parcel parcel = (Parcel)getArguments().getSerializable(ARG_PARCEL);
+        ImageView coatOfArms = layout.findViewById(R.id.imageView);
         // получить из ресурсов массив указателей на изображения гербов
         TypedArray imgs = getResources().obtainTypedArray(R.array.coatofarms_imgs);
         // выбрать по индексу подходящий
-        coatOfArms.setImageResource(imgs.getResourceId(index, -1));
-        TextView city = getActivity().findViewById(R.id.textView);
-        String[] names = getResources().getStringArray(R.array.Cities);
-        city.setText(names[index]);
-        Button info = getActivity().findViewById(R.id.button);
+        coatOfArms.setImageResource(imgs.getResourceId(parcel.getImageIndex(), -1));
+        TextView city = layout.findViewById(R.id.textView);
+        city.setText(parcel.getCityName());
+        Button info = layout.findViewById(R.id.button);
         info.setOnClickListener(infoListener);
+        return layout;
     }
 
     View.OnClickListener infoListener = new View.OnClickListener() {
@@ -74,7 +56,8 @@ public class CoatofarmsFragment extends Fragment implements Constants {
             FragmentManager fragmentManager = getActivity().
                     getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
-            InfoFragment info = InfoFragment.newInstance(index);
+            Parcel parcel = (Parcel)getArguments().getSerializable(ARG_PARCEL);
+            InfoFragment info = InfoFragment.newInstance(parcel);
             int idForReplace = android.R.id.content;
             View view = getActivity().findViewById(R.id.coat_of_arms);
             if (view != null){

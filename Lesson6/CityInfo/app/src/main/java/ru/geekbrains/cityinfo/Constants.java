@@ -1,5 +1,5 @@
 package ru.geekbrains.cityinfo;
 
 public interface Constants {
-    String ARG_INDEX = "index";
+    String ARG_PARCEL = "parcel";
 }

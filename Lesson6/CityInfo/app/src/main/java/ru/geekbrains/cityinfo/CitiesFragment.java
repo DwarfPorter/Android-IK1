@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.Random;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,7 +56,7 @@ public class CitiesFragment extends ListFragment implements Constants {
         // Если можно нарисовать рядом герб, то сделаем это
         if (isExistCoatofarms){
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            showCoatofarms(0);
+            showCoatofarms(constructParcel(0));
         }
 
 
@@ -63,19 +65,20 @@ public class CitiesFragment extends ListFragment implements Constants {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        showCoatofarms(position);
+        Parcel parcel = constructParcel(position);
+        showCoatofarms(parcel);
     }
 
-    private void showCoatofarms(int currentPosition){
+    private void showCoatofarms(Parcel parcel){
         if (isExistCoatofarms) {
             // Выделим текущий элемент списка
-            getListView().setItemChecked(currentPosition, true);
+            getListView().setItemChecked(parcel.getImageIndex(), true);
 
             FragmentManager fragmentManager = ((AppCompatActivity)getActivity()).
                     getSupportFragmentManager();
             // если есть необходимость, то выведем герб
             // Создаем новый фрагмент, с текущей позицией, для вывода герба
-            CoatofarmsFragment detail = CoatofarmsFragment.newInstance(currentPosition);
+            CoatofarmsFragment detail = CoatofarmsFragment.newInstance(parcel);
 
             // Выполняем транзакцию по замене фрагмента
             FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -88,8 +91,17 @@ public class CitiesFragment extends ListFragment implements Constants {
             Intent intent = new Intent();
             intent.setClass(getActivity(), CoatofarmsActivity.class);
             // и передадим туда параметры
-            intent.putExtra(ARG_INDEX, currentPosition);
+            intent.putExtra(ARG_PARCEL, parcel);
             startActivity(intent);
         }
+    }
+
+    private Parcel constructParcel(int position){
+        String[] cityNames = getResources().getStringArray(R.array.Cities);
+        Random rnd = new Random();
+        int rndTemp = rnd.nextInt(40);
+        int rndPress = rnd.nextInt(50) + 720;
+        int rndHum = rnd.nextInt(100);
+        return new Parcel(position, cityNames[position], rndTemp, rndPress , rndHum);
     }
 }

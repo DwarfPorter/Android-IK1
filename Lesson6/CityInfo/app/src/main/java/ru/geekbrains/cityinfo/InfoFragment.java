@@ -27,49 +27,29 @@ public class InfoFragment extends Fragment implements Constants {
         // Required empty public constructor
     }
 
-    public static InfoFragment newInstance(int index) {
+    public static InfoFragment newInstance(Parcel parcel) {
         InfoFragment fragment = new InfoFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_INDEX, index);
+        args.putSerializable(ARG_PARCEL, parcel);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            index = getArguments().getInt(ARG_INDEX, 0);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        TextView city = getActivity().findViewById(R.id.cityInfo);
-        if (city == null) return;
-        String[] names = getResources().getStringArray(R.array.Cities);
-        city.setText(names[index]);
-
-        Random rnd = new Random();
-        TextView viewTemp = getActivity().findViewById(R.id.viewTemp);
-        int rndTemp = rnd.nextInt(40);
-        viewTemp.setText(Integer.toString(rndTemp));
-        TextView viewPress = getActivity().findViewById(R.id.viewPress);
-        int rndPress = rnd.nextInt(50) + 720;
-        viewPress.setText(Integer.toString(rndPress));
-        TextView viewHum = getActivity().findViewById(R.id.viewHum);
-        int rndHum = rnd.nextInt(100);
-        viewHum.setText(Integer.toString(rndHum));
-
-        Button back = getActivity().findViewById(R.id.btnBack);
+        View layout = inflater.inflate(R.layout.fragment_info, container, false);
+        Parcel parcel = (Parcel)getArguments().getSerializable(ARG_PARCEL);
+        TextView city = layout.findViewById(R.id.cityInfo);
+        city.setText(parcel.getCityName());
+        TextView viewTemp = layout.findViewById(R.id.viewTemp);
+        viewTemp.setText(Integer.toString(parcel.getTemperature()));
+        TextView viewPress = layout.findViewById(R.id.viewPress);
+        viewPress.setText(Integer.toString(parcel.getPressure()));
+        TextView viewHum = layout.findViewById(R.id.viewHum);
+        viewHum.setText(Integer.toString(parcel.getHumidity()));
+        Button back = layout.findViewById(R.id.btnBack);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,5 +58,6 @@ public class InfoFragment extends Fragment implements Constants {
                 fragmentManager.popBackStack();
             }
         });
+        return layout;
     }
 }

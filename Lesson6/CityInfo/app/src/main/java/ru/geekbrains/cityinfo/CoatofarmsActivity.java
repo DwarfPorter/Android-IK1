@@ -20,8 +20,8 @@ public class CoatofarmsActivity extends AppCompatActivity implements Constants {
             // Если это активити запускается первый раз (с каждым новым гербом первый раз)
             // то перенаправим параметр фрагменту
             Bundle bundleArg = getIntent().getExtras();
-            int index = bundleArg.getInt(ARG_INDEX, 0);
-            CoatofarmsFragment details = CoatofarmsFragment.newInstance(index);
+            Parcel parcel = (Parcel) bundleArg.getSerializable(ARG_PARCEL);
+            CoatofarmsFragment details = CoatofarmsFragment.newInstance(parcel);
             // Добавим фрагмент на активити
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, details).commit();
         }
