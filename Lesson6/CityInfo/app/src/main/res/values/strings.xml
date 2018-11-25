@@ -8,6 +8,7 @@
     <string name="Temperature">Температура</string>
     <string name="Pressure">Давление</string>
     <string name="Humidity">Влажность</string>
+    <string name="Back">Назад</string>
     <string-array name="Cities">
         <item>Москва</item>
         <item>Санкт-Петербург</item>

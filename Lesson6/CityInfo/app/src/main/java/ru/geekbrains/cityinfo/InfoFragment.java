@@ -4,9 +4,11 @@ package ru.geekbrains.cityinfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -52,6 +54,7 @@ public class InfoFragment extends Fragment implements Constants {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         TextView city = getActivity().findViewById(R.id.cityInfo);
+        if (city == null) return;
         String[] names = getResources().getStringArray(R.array.Cities);
         city.setText(names[index]);
 
@@ -65,5 +68,15 @@ public class InfoFragment extends Fragment implements Constants {
         TextView viewHum = getActivity().findViewById(R.id.viewHum);
         int rndHum = rnd.nextInt(100);
         viewHum.setText(Integer.toString(rndHum));
+
+        Button back = getActivity().findViewById(R.id.btnBack);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().
+                        getSupportFragmentManager();
+                fragmentManager.popBackStack();
+            }
+        });
     }
 }

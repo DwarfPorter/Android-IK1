@@ -80,6 +80,7 @@ public class CoatofarmsFragment extends Fragment implements Constants {
             if (view != null){
                 idForReplace = R.id.coat_of_arms;
             }
+            ft.addToBackStack("");
             ft.replace(idForReplace, info);  // замена фрагмента
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
