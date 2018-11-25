@@ -5,9 +5,13 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,6 +64,27 @@ public class CoatofarmsFragment extends Fragment implements Constants {
         TextView city = getActivity().findViewById(R.id.textView);
         String[] names = getResources().getStringArray(R.array.Cities);
         city.setText(names[index]);
+        Button info = getActivity().findViewById(R.id.button);
+        info.setOnClickListener(infoListener);
     }
+
+    View.OnClickListener infoListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FragmentManager fragmentManager = getActivity().
+                    getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            InfoFragment info = InfoFragment.newInstance(index);
+            int idForReplace = android.R.id.content;
+            View view = getActivity().findViewById(R.id.coat_of_arms);
+            if (view != null){
+                idForReplace = R.id.coat_of_arms;
+            }
+            ft.addToBackStack("");
+            ft.replace(idForReplace, info);  // замена фрагмента
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
+        }
+    };
 
 }

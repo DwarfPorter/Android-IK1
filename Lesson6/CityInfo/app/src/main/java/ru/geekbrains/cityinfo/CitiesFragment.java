@@ -73,11 +73,9 @@ public class CitiesFragment extends ListFragment implements Constants {
 
             FragmentManager fragmentManager = ((AppCompatActivity)getActivity()).
                     getSupportFragmentManager();
-            // Проверим, что фрагмент с гербом существует в активити
-            CoatofarmsFragment detail = (CoatofarmsFragment) fragmentManager.findFragmentById(R.id.coat_of_arms);
             // если есть необходимость, то выведем герб
             // Создаем новый фрагмент, с текущей позицией, для вывода герба
-            detail = CoatofarmsFragment.newInstance(currentPosition);
+            CoatofarmsFragment detail = CoatofarmsFragment.newInstance(currentPosition);
 
             // Выполняем транзакцию по замене фрагмента
             FragmentTransaction ft = fragmentManager.beginTransaction();
