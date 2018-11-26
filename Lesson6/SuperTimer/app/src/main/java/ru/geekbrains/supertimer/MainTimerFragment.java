@@ -1,6 +1,7 @@
 package ru.geekbrains.supertimer;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -27,15 +28,25 @@ public class MainTimerFragment extends Fragment {
     private TextView textSecond;
     private TextView textDecsecond;
 
+    private Publisher publisher;
+
     public MainTimerFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (publisher == null){
+            publisher = ((PublisherGetter) context).getPublisher(); // получим обработчика подписок
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        setRetainInstance(true);
         View layout = inflater.inflate(R.layout.fragment_main_timer, container, false);
         textHour = layout.findViewById(R.id.textHour);
         textMinute = layout.findViewById(R.id.textMinute);
@@ -65,16 +76,17 @@ public class MainTimerFragment extends Fragment {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                long hour = decseconds / DECSECONDS_IN_HOUR;
-                long minute = (decseconds % DECSECONDS_IN_HOUR) / DECSECONDS_IN_MUNUTE;
-                long second = (decseconds % DECSECONDS_IN_MUNUTE)  / DECSECONDS_IN_SECOND;
-                long decsecond = decseconds % DECSECONDS_IN_SECOND;
-                textHour.setText(String.format("%02d", hour));
-                textMinute.setText(String.format("%02d", minute));
-                textSecond.setText(String.format("%02d", second));
-                textDecsecond.setText(String.format("%01d", decsecond));
                 if (running) {
+                    long hour = decseconds / DECSECONDS_IN_HOUR;
+                    long minute = (decseconds % DECSECONDS_IN_HOUR) / DECSECONDS_IN_MUNUTE;
+                    long second = (decseconds % DECSECONDS_IN_MUNUTE)  / DECSECONDS_IN_SECOND;
+                    long decsecond = decseconds % DECSECONDS_IN_SECOND;
+                    textHour.setText(String.format("%02d", hour));
+                    textMinute.setText(String.format("%02d", minute));
+                    textSecond.setText(String.format("%02d", second));
+                    textDecsecond.setText(String.format("%01d", decsecond));
                     decseconds++;
+                    publisher.notify(hour, minute, second, decsecond);
                 }
                 handler.postDelayed(this, DELAY);
             }

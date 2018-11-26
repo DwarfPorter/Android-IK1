@@ -15,30 +15,64 @@
             android:id="@+id/textHour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:text="00"
-            app:layout_constraintEnd_toStartOf="@+id/texthourSeparator"
+            app:layout_constraintEnd_toStartOf="@+id/textHourSeparator"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/texthourSeparator"
+            android:id="@+id/textHourSeparator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:text="@string/Separator1"
+            app:layout_constraintEnd_toStartOf="@+id/textMinute"
             app:layout_constraintStart_toEndOf="@+id/textHour"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textMinute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="148dp"
-            tools:layout_editor_absoluteY="185dp" />
+            android:text="00"
+            app:layout_constraintEnd_toStartOf="@+id/textMinuteSeparator"
+            app:layout_constraintStart_toEndOf="@+id/textHourSeparator"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textMinuteSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Separator1"
+            app:layout_constraintEnd_toStartOf="@+id/textSecond"
+            app:layout_constraintStart_toEndOf="@+id/textMinute"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textSecond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00"
+            app:layout_constraintEnd_toStartOf="@+id/textSecondSeparator"
+            app:layout_constraintStart_toEndOf="@+id/textMinuteSeparator"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textSecondSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Separator2"
+            app:layout_constraintEnd_toStartOf="@+id/textDecSecond"
+            app:layout_constraintStart_toEndOf="@+id/textSecond"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textDecSecond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textSecondSeparator"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>
