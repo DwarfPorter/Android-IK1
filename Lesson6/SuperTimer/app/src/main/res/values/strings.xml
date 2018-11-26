@@ -5,4 +5,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Separator1">:</string>
     <string name="Separator2">.</string>
+    <string name="Stop">Стоп</string>
+    <string name="Start">Старт</string>
 </resources>
