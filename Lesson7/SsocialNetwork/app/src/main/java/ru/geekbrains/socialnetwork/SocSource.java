@@ -43,4 +43,7 @@ public class SocSource {
         return answer;
     }
 
+    public int length() {
+        return dataSource.size();
+    }
 }

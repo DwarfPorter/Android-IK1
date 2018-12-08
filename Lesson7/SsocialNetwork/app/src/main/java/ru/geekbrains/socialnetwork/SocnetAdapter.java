@@ -5,15 +5,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder> {
 
-    private String[] dataSource;
+    private SocSource dataSource;
     private OnItemClickListener itemClickListener;
 
-    public SocnetAdapter(String[] dataSource){
-
+    public SocnetAdapter(SocSource dataSource){
         this.dataSource = dataSource;
     }
 
@@ -33,12 +34,15 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull SocnetAdapter.ViewHolder viewHolder, int i) {
-        viewHolder.getTextView().setText(dataSource[i]);
+        Soc soc = dataSource.getSoc(i);
+        viewHolder.getLike().setChecked(soc.getLike());
+        viewHolder.getImage().setImageResource(soc.getPicture());
+        viewHolder.getDescription().setText(soc.getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return dataSource.length;
+        return dataSource.length();
     }
 
     public interface OnItemClickListener {
@@ -46,15 +50,19 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView textView;
+        private TextView description;
+        private ImageView image;
+        private CheckBox like;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = (TextView)itemView;
+            description = itemView.findViewById(R.id.description);
+            image = itemView.findViewById(R.id.imageView);
+            like = itemView.findViewById(R.id.like);
         }
 
         public void setOnClickListener(final OnItemClickListener listener){
-            textView.setOnClickListener(new View.OnClickListener() {
+            image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Получаем позицию адаптера
@@ -66,9 +74,14 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
             });
         }
 
-
-        public TextView getTextView() {
-            return textView;
+        public CheckBox getLike() {
+            return like;
+        }
+        public TextView getDescription() {
+            return description;
+        }
+        public ImageView getImage() {
+            return image;
         }
     }
 }

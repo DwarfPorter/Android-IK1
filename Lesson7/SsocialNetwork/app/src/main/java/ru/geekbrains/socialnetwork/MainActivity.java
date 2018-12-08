@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] data = {"One", "Two", "Three", "Four"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +19,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        SocnetAdapter adapter = new SocnetAdapter(data);
+        // строим источник данных
+        SocSource sourceData = new SocSource(getResources());
+        // установим адаптер
+        SocnetAdapter adapter = new SocnetAdapter(sourceData.build());
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new SocnetAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(MainActivity.this, String.format("%s - %d", ((TextView)view).getText(), position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, String.format("позиция - %d", position), Toast.LENGTH_SHORT).show();
             }
         });
     }
