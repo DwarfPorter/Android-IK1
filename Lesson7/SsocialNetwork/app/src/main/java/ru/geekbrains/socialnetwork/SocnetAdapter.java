@@ -31,7 +31,7 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dataSource.length;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
