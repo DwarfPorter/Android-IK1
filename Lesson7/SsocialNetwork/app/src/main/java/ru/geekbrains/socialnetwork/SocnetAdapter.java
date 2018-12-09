@@ -2,6 +2,7 @@ package ru.geekbrains.socialnetwork;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
                 .inflate(R.layout.item, viewGroup, false);
         ViewHolder vh = new ViewHolder(v);
         vh.setOnClickListener(itemClickListener);
+        Log.d("SocnetAdapter", "onCreateViewHolder");
         return vh;
     }
 
@@ -36,6 +38,7 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
     public void onBindViewHolder(@NonNull SocnetAdapter.ViewHolder viewHolder, int i) {
         Soc soc = dataSource.getSoc(i);
         viewHolder.setData(soc.getDescription(), soc.getPicture(), soc.getLike());
+        Log.d("SocnetAdapter", "onBindViewHolder");
     }
 
     @Override
