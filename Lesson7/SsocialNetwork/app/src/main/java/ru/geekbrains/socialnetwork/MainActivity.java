@@ -24,9 +24,11 @@ public class MainActivity extends AppCompatActivity {
         itemDecoration.setDrawable(getDrawable(R.drawable.divider));
         recyclerView.addItemDecoration(itemDecoration);
         // строим источник данных
-        SocSource sourceData = new SocSource(getResources());
+        SocialDataSource sourceData = new SocSourceBuilder()
+                .setResources(getResources())
+                .build();
         // установим адаптер
-        SocnetAdapter adapter = new SocnetAdapter(sourceData.build());
+        SocnetAdapter adapter = new SocnetAdapter(sourceData);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new SocnetAdapter.OnItemClickListener() {
             @Override

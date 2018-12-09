@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder> {
 
-    private SocSource dataSource;
+    private SocialDataSource dataSource;
     private OnItemClickListener itemClickListener;
 
-    public SocnetAdapter(SocSource dataSource){
+    public SocnetAdapter(SocialDataSource dataSource){
         this.dataSource = dataSource;
     }
 
@@ -35,9 +35,7 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull SocnetAdapter.ViewHolder viewHolder, int i) {
         Soc soc = dataSource.getSoc(i);
-        viewHolder.getLike().setChecked(soc.getLike());
-        viewHolder.getImage().setImageResource(soc.getPicture());
-        viewHolder.getDescription().setText(soc.getDescription());
+        viewHolder.setData(soc.getDescription(), soc.getPicture(), soc.getLike());
     }
 
     @Override
@@ -72,6 +70,12 @@ public class SocnetAdapter extends RecyclerView.Adapter<SocnetAdapter.ViewHolder
                     listener.onItemClick(v, adapterPosition);
                 }
             });
+        }
+
+        public void setData(String description, int picture, boolean like){
+            getLike().setChecked(like);
+            getImage().setImageResource(picture);
+            getDescription().setText(description);
         }
 
         public CheckBox getLike() {

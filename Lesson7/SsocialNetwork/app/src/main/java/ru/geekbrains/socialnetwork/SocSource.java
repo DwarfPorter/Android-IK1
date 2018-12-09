@@ -6,7 +6,7 @@ import android.content.res.TypedArray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SocSource {
+public class SocSource implements SocialDataSource{
     private List<Soc> dataSource;   // строим этот источник данных
     private Resources resources;    // ресурсы приложения
 
@@ -15,7 +15,7 @@ public class SocSource {
         this.resources = resources;
     }
 
-    public SocSource build(){
+    public void init(){
         // строки описаний из ресурсов
         String[] descriptions = resources.getStringArray(R.array.descriptions);
         // изображения
@@ -24,7 +24,6 @@ public class SocSource {
         for (int i = 0; i < descriptions.length; i++) {
             dataSource.add(new Soc(descriptions[i], pictures[i], false));
         }
-        return this;
     }
 
     public Soc getSoc(int position) {
